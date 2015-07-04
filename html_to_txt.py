@@ -1,3 +1,6 @@
 import glob
 
-print glob.glob("content/posts/*.html")
+htmlFiles = glob.glob("content/posts/*.html")
+
+for i in range(len(htmlFiles)):
+    print htmlFiles[i].split(".html")[0]
