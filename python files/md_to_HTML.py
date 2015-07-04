@@ -13,19 +13,37 @@ def markdown_to_HTML(filename):
     italics = False
     # No. That's why these are false.
 
+    #Header code:
+    allHeaders = re.findall(r'\#+ .*?\n', md, re.M)
+    for i in range(0, len(allHeaders)):
+        title = allHeaders[i - 1].replace("# ", "").replace("#", "")
+        if "###### " in allHeaders[i - 1]:
+            md = md.replace(allHeaders[i - 1],"<H6>" + title + "</H6>")
+
+        elif "##### " in allHeaders[i - 1]:
+            md = md.replace(allHeaders[i - 1],"<H5>" + title + "</H5>")
+
+        elif "#### " in allHeaders[i - 1]:
+            md = md.replace(allHeaders[i - 1],"<H4>" + title + "</H4>")
+
+        elif "### " in allHeaders[i - 1]:
+            md = md.replace(allHeaders[i - 1],"<H3>" + title + "</H3>")
+
+        elif "## " in allHeaders[i - 1]:
+            md = md.replace(allHeaders[i - 1],"<H2>" + title + "</H2>")
+
+        elif "# " in allHeaders[i - 1]:
+            md = md.replace(allHeaders[i - 1],"<H1>" + title + "</H1>")
+
     whole = re.findall(r'\[.*?\)', md)
-    for i in range(-1, len(whole) - 1):
-        print i
-        whole = str(re.findall(r'\[.*?\)', md)[i])
-        print whole
+    for i in range(0, len(whole)):
+        whole = str(re.findall(r'\[.*?\)', md)[i - 1])
 
-        link = str(re.findall(r'\(.*?\)', whole)[i].replace("(", "").replace(")", ""))
+        link = str(re.findall(r'\(.*?\)', whole)[i - 1].replace("(", "").replace(")", ""))
 
-        title = str(re.findall(r'\[.*?\]', whole)[i].replace("[", "").replace("]", ""))
+        title = str(re.findall(r'\[.*?\]', whole)[i - 1].replace("[", "").replace("]", ""))
 
-        txt = ""
         md = md.replace(whole, "<a href = " + '"' + link + '">' + title + "</a>")
-        print md
 
     # Replace some characters so the string is easier to work with:
     md = string.replace(md, "***", "*_")
@@ -34,7 +52,6 @@ def markdown_to_HTML(filename):
     
     # Change the user input into a list:
     html = list(md)
-    print html
     for letter in  range(len(html)):
     # Bold code:
             if html[letter] == "_" and bold == False:
