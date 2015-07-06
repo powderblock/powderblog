@@ -2,9 +2,10 @@ import glob
 import sys
 # Local module:
 from md_to_HTML import *
+import os
 
 # All the markdown files in the directory:
-filesInDir = glob.glob("../content/posts/md/*.md")
+filesInDir = sorted(glob.glob("../content/posts/md/*.md"), key=os.path.getctime)
 
 # The args given after the file:
 fileNameGiven = sys.argv[1]

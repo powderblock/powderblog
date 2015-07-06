@@ -1,4 +1,5 @@
-:title: Hello!
+title: Hello!
+date: 7/6/2015
+author: Blade Nelson
 
-#This is a post.
-*This* is some content.
+Hello!

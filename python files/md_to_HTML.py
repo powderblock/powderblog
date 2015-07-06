@@ -14,16 +14,20 @@ def markdown_to_HTML(filename):
     # No. That's why these are false.
 
     # Metadata code:
-    postTitle = re.findall(r'title:.*?\n', md)
-    newPostTitle = str(postTitle[0].replace("\n", "-->")).replace("title:", "<!-- title: ")
-    md = md.replace(postTitle[0], newPostTitle)
+    postTitle = re.findall(r'title:.*?\n', md)[0]
+    # This will give us the "raw" title, no newline, no surrounding text or code
+    articleTitle = str(postTitle.replace("title:", "")).rstrip()
+    md = md.replace(postTitle, "\n      <H1>"+articleTitle+"</H1>\n" + postTitle)
+    print md
+    newPostTitle = str(postTitle.replace("\n", "-->")).replace("title:", "\n      <!-- title:")
+    md = md.replace(postTitle, newPostTitle)
 
     postDate = re.findall(r'date:.*?\n', md)
-    newPostDate = str(postDate[0].replace("\n", "-->")).replace("date:", "<!-- date: ")
+    newPostDate = str(postDate[0].replace("\n", "-->")).replace("date:", "\n      <!-- date:")
     md = md.replace(postDate[0], newPostDate)
 
     postAuthor = re.findall(r'author:.*?\n', md)
-    newPostAuthor = str(postAuthor[0].replace("\n", "-->")).replace("author:", "<!-- author: ")
+    newPostAuthor = str(postAuthor[0].replace("\n", "-->")).replace("author:", "\n      <!-- author:")
     md = md.replace(postAuthor[0], newPostAuthor)
 
     #Header code:
@@ -98,15 +102,20 @@ def markdown_to_HTML(filename):
     # Rejoin the input back into a string from a list:
     html = "".join(html)
     #Save the file to the "html" directory:
-    filename = filename.replace("/md/", "/html/").replace(".md", "")
+    print filename
+    filename = filename.replace("/md\\", "/html/").replace(".md", "")
     print filename
     text_file = open(filename + ".html", "w+")
     with open("../content/default_content/header.html", 'r') as content_file:
         header = content_file.read().replace('href="content/theme/styles.css">', 'href="../../theme/styles.css">')
+    
     with open("../content/default_content/footer.html", 'r') as content_file:
         footer = content_file.read()
+
+    articleTitle = re.findall(r'<!-- title: +.*?-->', html)[0].replace("<!-- title:", "").replace("-->", "").replace(" ", "")
+    pageTitle = re.findall(r'<title>+.*?</title>', header)[0]
+    header = header.replace(pageTitle, "<title>" + articleTitle + "</title>")
     text_file.write(header)
-    #text_file.write("\n")
     text_file.write(html)
     text_file.write("\n")
     text_file.write(footer)

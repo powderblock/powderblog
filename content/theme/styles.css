@@ -10,6 +10,7 @@ html, body {
 #header {
 	font-size: 20px;
 	font-weight: light;
+	padding-left: 10px;
 }
 
 #links {
@@ -24,13 +25,17 @@ html, body {
 }
 
 #body {
-	font-size: 20px;
+	font-size: 14px;
 	text-align: justify;
 	max-width: 900px;
 	min-height: 80%;
 	height: auto;
 	margin: 0 auto;
 	padding-bottom: 5em;
+}
+
+#postInfo {
+	font-size: 12px;
 }
 
 #footer {
