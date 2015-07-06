@@ -15,11 +15,10 @@ index.write("\n")
 with open("../content/default_content/footer.html", 'r') as content_file:
     footer = content_file.read()
 
-index.write('<div id = "links">')
 for i in range(len(htmlFiles)):
     title = htmlFiles[i].replace("../content/posts/html\\", "").replace(".html", "")
-    index.write('<a href ="powderblog/' + htmlFiles[i] + '">' + title + "</a>")
-index.write("</div>")
+    index.write('       <h3><a href ="powderblog/' + htmlFiles[i] + '">' + title + "</a><h3>")
 
+index.write("\n")
 index.write(footer)
 index.close()

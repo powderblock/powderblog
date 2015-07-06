@@ -14,6 +14,10 @@ def markdown_to_HTML(filename):
     italics = False
     # No. That's why these are false.
 
+    # Metadata code:
+    postTitle = re.findall(r':title:.*?\n', md)
+    print postTitle[0].replace(":title:", "<!-- title: ").replace("\n", "-->\n")
+
     #Header code:
     allHeaders = re.findall(r'\#+ .*?\n', md, re.M)
     for i in range(0, len(allHeaders)):
@@ -90,5 +94,11 @@ def markdown_to_HTML(filename):
     filename = filename.replace("md\\", "html/").replace(".md", "")
     print filename
     text_file = open(filename + ".html", "w+")
+    with open("../content/default_content/header.html", 'r') as content_file:
+        header = content_file.read().replace('href="content/theme/styles.css">', 'href="../../theme/styles.css">')
+    with open("../content/default_content/footer.html", 'r') as content_file:
+        footer = content_file.read()
+    text_file.write(header)
     text_file.write(html)
+    text_file.write(footer)
     text_file.close()
