@@ -3,14 +3,14 @@ import sys
 from md_to_HTML import *
 
 # All the markdown files in the directory:
-filesInDir = glob.glob("*.md")
+filesInDir = glob.glob("../content/posts/md/*.md")
 
 # The args given after the file:
 fileNameGiven = sys.argv[1]
 
 if fileNameGiven == "-all":
-    for i in range(len(fileNameGiven)):
-            print fileNameGiven[i]
+    for i in range(len(filesInDir)):
+            markdown_to_HTML(filesInDir[i])
 
 else:
     # If if the given filename is not found:
