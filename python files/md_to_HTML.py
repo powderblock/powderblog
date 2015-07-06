@@ -16,29 +16,30 @@ def markdown_to_HTML(filename):
 
     # Metadata code:
     postTitle = re.findall(r':title:.*?\n', md)
-    print postTitle[0].replace(":title:", "<!-- title: ").replace("\n", "-->\n")
+    newPostTitle = str(postTitle[0].replace(":title:", "<!-- title: ").replace("\n", "-->\n"))
+    md = md.replace(postTitle[0], newPostTitle)
 
     #Header code:
     allHeaders = re.findall(r'\#+ .*?\n', md, re.M)
     for i in range(0, len(allHeaders)):
         title = allHeaders[i].replace("# ", "").replace("#", "")
         if "###### " in allHeaders[i]:
-            md = md.replace(allHeaders[i],"<H6>" + title + "</H6>")
+            md = md.replace(allHeaders[i], "<H6>" + title + "</H6>")
 
         elif "##### " in allHeaders[i]:
-            md = md.replace(allHeaders[i],"<H5>" + title + "</H5>")
+            md = md.replace(allHeaders[i], "<H5>" + title + "</H5>")
 
         elif "#### " in allHeaders[i - 1]:
-            md = md.replace(allHeaders[i],"<H4>" + title + "</H4>")
+            md = md.replace(allHeaders[i], "<H4>" + title + "</H4>")
 
         elif "### " in allHeaders[i]:
-            md = md.replace(allHeaders[i],"<H3>" + title + "</H3>")
+            md = md.replace(allHeaders[i], "<H3>" + title + "</H3>")
 
         elif "## " in allHeaders[i]:
-            md = md.replace(allHeaders[i],"<H2>" + title + "</H2>")
+            md = md.replace(allHeaders[i], "<H2>" + title + "</H2>")
 
         elif "# " in allHeaders[i]:
-            md = md.replace(allHeaders[i],"<H1>" + title + "</H1>")
+            md = md.replace(allHeaders[i], "<H1>" + title + "</H1>")
 
     whole = re.findall(r'\[.*?\)', md)
     for i in range(0, len(whole)):
