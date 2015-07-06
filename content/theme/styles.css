@@ -4,21 +4,24 @@ html, body {
 	margin: 0;
 	padding: 0;
 	font-family: 'Open Sans', sans-serif;
+	background-image: url("https://github.com/powderblock/powderblog/blob/master/content/theme/body-background.png?raw=true");
 }
 
 #header {
 	font-size: 20px;
 	font-weight: light;
-	height: 50px;
 }
 
 #links {
-	font-size: 16px;
+	height: 44px;
+	font-size: 24px;
 	text-align: center;
 	font-weight: bold;
-	height: 70px;
 	width: 100%;
 	word-spacing: 30px;
+	padding-top: 15px;
+ 	padding-bottom: 10px;
+	background-image: url("https://github.com/powderblock/powderblog/blob/master/content/theme/header-background.png?raw=true");
 }
 
 #body {
