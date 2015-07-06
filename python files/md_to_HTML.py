@@ -4,7 +4,6 @@ import sys
 import re
 
 def markdown_to_HTML(filename):
-    print filename
     # Take input from the user:
     with open(filename, 'r') as content_file:
         md = content_file.read()
@@ -15,9 +14,17 @@ def markdown_to_HTML(filename):
     # No. That's why these are false.
 
     # Metadata code:
-    postTitle = re.findall(r':title:.*?\n', md)
-    newPostTitle = str(postTitle[0].replace(":title:", "<!-- title: ").replace("\n", "-->\n"))
+    postTitle = re.findall(r'title:.*?\n', md)
+    newPostTitle = str(postTitle[0].replace("\n", "-->")).replace("title:", "<!-- title: ")
     md = md.replace(postTitle[0], newPostTitle)
+
+    postDate = re.findall(r'date:.*?\n', md)
+    newPostDate = str(postDate[0].replace("\n", "-->")).replace("date:", "<!-- date: ")
+    md = md.replace(postDate[0], newPostDate)
+
+    postAuthor = re.findall(r'author:.*?\n', md)
+    newPostAuthor = str(postAuthor[0].replace("\n", "-->")).replace("author:", "<!-- author: ")
+    md = md.replace(postAuthor[0], newPostAuthor)
 
     #Header code:
     allHeaders = re.findall(r'\#+ .*?\n', md, re.M)
@@ -59,8 +66,8 @@ def markdown_to_HTML(filename):
     # Change the user input into a list:
     html = list(md)
     for letter in  range(len(html)):
-        if html[letter] == "\n":
-            html[letter] = "\n <br>"
+        if html[letter] == "\n" and html[letter + 1] == "\n":
+            html[letter] = "<br>"
         # Bold code:
         elif html[letter] == "_" and bold == False:
             html[letter] = "<strong>"
@@ -90,9 +97,8 @@ def markdown_to_HTML(filename):
 
     # Rejoin the input back into a string from a list:
     html = "".join(html)
-
     #Save the file to the "html" directory:
-    filename = filename.replace("md\\", "html/").replace(".md", "")
+    filename = filename.replace("/md/", "/html/").replace(".md", "")
     print filename
     text_file = open(filename + ".html", "w+")
     with open("../content/default_content/header.html", 'r') as content_file:
@@ -100,6 +106,8 @@ def markdown_to_HTML(filename):
     with open("../content/default_content/footer.html", 'r') as content_file:
         footer = content_file.read()
     text_file.write(header)
+    #text_file.write("\n")
     text_file.write(html)
+    text_file.write("\n")
     text_file.write(footer)
     text_file.close()

@@ -19,8 +19,7 @@ html, body {
 	font-weight: bold;
 	width: 100%;
 	word-spacing: 30px;
-	padding-top: 15px;
- 	padding-bottom: 10px;
+	padding-top: 15px;;
 	background-image: url("https://github.com/powderblock/powderblog/blob/master/content/theme/header-background.png?raw=true");
 }
 
@@ -31,8 +30,7 @@ html, body {
 	min-height: 80%;
 	height: auto;
 	margin: 0 auto;
-	padding: 30px;
-	padding-bottom: 3em;
+	padding-bottom: 5em;
 }
 
 #footer {
