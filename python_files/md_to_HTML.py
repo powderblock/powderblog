@@ -103,7 +103,7 @@ def markdown_to_HTML(filename):
     html = "".join(html)
     #Save the file to the "html" directory:
     print filename
-    filename = filename.replace("/md\\", "/html/").replace(".md", "")
+    filename = filename.replace("/md/", "/html/").replace(".md", "")
     print filename
     text_file = open(filename + ".html", "w+")
     with open("../content/default_content/header.html", 'r') as content_file:
