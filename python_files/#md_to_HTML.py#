@@ -14,7 +14,8 @@ def markdown_to_HTML(filename):
     # No. That's why these are false.
 
     # Super Script:
-    superScript = re.findall(r'\^\(.*?\)', md)
+    superScript = re.findall(r'^    superScript = re.findall(r'^\(.*?\)', md)
+\(.*?\)', md)
     print superScript
     for i in range(len(superScript)):
                    newScript = superScript[i].replace("^(", "<sup>").replace(")", "</sup>")
